@@ -1,25 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: black;">
   <div class="container">
-      <a class="navbar-brand" href="#">Poster-Store</a>
+      <a class="navbar-brand" [routerLink]="['/home']">Poster-Store</a>
+
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Q&A</a>
+        <li class="nav-item" routerLinkActive="router-link-active">
+          <a class="nav-link" [routerLink]="['/posters']">Posters</a>
         </li>
       </ul>
+
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
         <button class="btn  dropdown-toggle text-white" dropdownToggle>
           <!-- Welcome {{authService.decodedToken?.unique_name | titlecase}} -->
           Welcome User
         </button>
+
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *dropdownMenu>
           <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Account</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Log out</a>
         </div>
       </div>
+
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline mt-2 mt-md-0"(ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username">
         <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password">

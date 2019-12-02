@@ -19,6 +19,7 @@ using PosterStore.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using PosterStore.Helpers;
+using AutoMapper;
 
 namespace PosterStore
 {
@@ -36,10 +37,17 @@ namespace PosterStore
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt => {
+                    opt.SerializerSettings.ReferenceLoopHandling = 
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             services.AddCors();
+            services.AddTransient<Seed>();
+            services.AddAutoMapper();
             services.AddScoped<IAuthRepository,AuthRepository>(); // ми делаем внедрение IAuthRepository в наш контроллер 
             // код внутри контроллера никогда не будет изменятся 
+            services.AddScoped<IDatingRepository,DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -55,7 +63,7 @@ namespace PosterStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -76,8 +84,9 @@ namespace PosterStore
                 });
                 app.UseHsts();
             }
-             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
-           // app.UseHttpsRedirection();
+           // seeder.SeedPosters();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
+             // app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
         }

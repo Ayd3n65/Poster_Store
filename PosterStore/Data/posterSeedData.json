@@ -1,0 +1,62 @@
+[
+  {
+    "Title": " Poster Chasity",
+    "Description": "In enim esse non ipsum aliqua proident. Eiusmod ut proident ut veniam eu id duis. Sit elit dolor et tempor ad. Reprehenderit voluptate tempor sunt excepteur est sint cupidatat. Nisi nulla exercitation do esse esse. Ipsum veniam qui mollit eiusmod commodo qui. Excepteur pariatur Lorem commodo Lorem magna eiusmod sit do laborum excepteur enim aute veniam elit.\r\n",
+    "Size": "M",
+    "Price": "123",
+    "PosterImages": [
+      {
+        "url": "https://i.imgur.com/i3Vn7rP.jpg",
+        "isMain": true
+      }
+    ]
+  },
+  {
+    "Title": " Poster Concetta",
+    "Description": "Aliqua labore et magna pariatur tempor. Adipisicing esse officia amet sunt amet id. Qui consectetur et deserunt mollit eu nisi.\r\n",
+    "Size": "M",
+    "Price": "123",
+    "PosterImages": [
+      {
+        "url": "https://i.imgur.com/BlsD9sG.jpg",
+        "isMain": true
+      }
+    ]
+  },
+  {
+    "Title": " Poster Raquel",
+    "Description": "Occaecat in ullamco elit irure esse cillum consequat duis non minim. Lorem non fugiat et excepteur amet laborum. Esse est eiusmod ad nostrud elit ut exercitation dolore anim id reprehenderit irure. Ullamco proident ullamco aute non est id sint sit sint consectetur adipisicing nisi quis veniam. Qui eiusmod deserunt cupidatat sunt reprehenderit.\r\n",
+    "Size": "M",
+    "Price": "123",
+    "PosterImages": [
+      {
+        "url": "https://i.imgur.com/sg0KfAj.jpg",
+        "isMain": true
+      }
+    ]
+  },
+  {
+    "Title": " Poster Monique",
+    "Description": "Minim labore Lorem esse non enim ullamco velit in sit officia. Enim nisi dolore proident ea voluptate. Minim irure ad occaecat culpa pariatur quis nostrud. Commodo magna irure Lorem Lorem mollit. Et eiusmod deserunt reprehenderit culpa. Consectetur enim adipisicing cillum ex ea minim velit esse irure dolor Lorem consectetur officia irure.\r\n",
+    "Size": "M",
+    "Price": "123",
+    "PosterImages": [
+      {
+        "url": "https://i.imgur.com/B9bkqok.jpg",
+        "isMain": true
+      }
+    ]
+  },
+  {
+    "Title": " Poster Jenifer",
+    "Description": "Laborum ipsum officia incididunt consectetur sint laboris voluptate fugiat officia in adipisicing nulla do id. In duis et aute commodo cupidatat aute ullamco nostrud nulla ipsum commodo. Cillum sit sit sunt veniam adipisicing. Velit exercitation amet officia ullamco est aliqua ea esse consequat esse exercitation aliquip excepteur non. Sit esse culpa aliqua aute aliquip ea exercitation consectetur fugiat pariatur nostrud.\r\n",
+    "Size": "M",
+    "Price": "123",
+    "PosterImages": [
+      {
+        "url": "https://i.imgur.com/NYqpzNy.jpg",
+        "isMain": true
+      }
+    ]
+  }
+]

@@ -14,8 +14,10 @@ namespace PosterStore.Data
 
         }
         public  DbSet<Value> MyProperty { get; set; }
-        public DbSet<User> Users {get; set;}
-     
+        public DbSet<User> Users {get; set;}   
+        public DbSet<Poster> Posters {get; set;}
+        public DbSet<PosterImage> PosterImages {get; set;}
+
 
     }
 }

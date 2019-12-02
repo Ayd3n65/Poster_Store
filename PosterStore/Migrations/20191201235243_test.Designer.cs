@@ -10,8 +10,8 @@ using PosterStore.Data;
 namespace PosterStore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191125144009_v3")]
-    partial class v3
+    [Migration("20191201235243_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,44 @@ namespace PosterStore.Migrations
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PosterStore.Models.Poster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Price");
+
+                    b.Property<string>("Size");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posters");
+                });
+
+            modelBuilder.Entity("PosterStore.Models.PosterImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PosterId");
+
+                    b.Property<string>("Url");
+
+                    b.Property<bool>("isMain");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PosterId");
+
+                    b.ToTable("PosterImages");
+                });
 
             modelBuilder.Entity("PosterStore.Models.User", b =>
                 {
@@ -49,6 +87,14 @@ namespace PosterStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MyProperty");
+                });
+
+            modelBuilder.Entity("PosterStore.Models.PosterImage", b =>
+                {
+                    b.HasOne("PosterStore.Models.Poster", "Poster")
+                        .WithMany("PosterImages")
+                        .HasForeignKey("PosterId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

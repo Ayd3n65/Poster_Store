@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'http://localhost:5000/api/account/';
+  baseUrl = environment.apiUrl + 'account/';
 constructor(private http: HttpClient) { }
 
 login(model: any) {
