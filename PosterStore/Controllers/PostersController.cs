@@ -51,7 +51,5 @@ namespace PosterStore.Controllers
       return StatusCode(201);
     }
 
-    
-
   }
 }

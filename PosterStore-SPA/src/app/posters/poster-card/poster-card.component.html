@@ -10,6 +10,9 @@
 <div class="card-body text-white d-flex flex-column justify-content-center p-1">
   <h4 class="card-title text-center">{{poster.title}} | from ${{poster.price}}</h4>
   <h6 class="card-subtitle mb-2 text-center" style="color: #7f8c8d;">Emilia-Romagna Region, Italy</h6>
+  <div class="link d-flex">
+    <a class="card-link text-warning" [routerLink]="['/posters/', poster.id]">Read More</a>
+  </div>
 </div>
 
 <!-- <div class="card-img-overlay text-white d-flex flex-column justify-content-center">

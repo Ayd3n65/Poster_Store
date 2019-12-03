@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,8 @@ import { NavComponent } from './nav/nav.component';
 import { PosterListComponent } from './posters/poster-list/poster-list.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { PosterCardComponent } from './posters/poster-card/poster-card.component';
+import { PosterDetailComponent } from './posters/poster-detail/poster-detail.component';
 
 import { HttpClient } from 'selenium-webdriver/http';
 
@@ -20,7 +22,8 @@ import { ErrorInterceptor, ErrorInterceptorProvider } from './_services/error.in
 import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
 import { PosterService } from './_services/poster.service';
-import { PosterCardComponent } from './posters/poster-card/poster-card.component';
+import { PosterDetailResolver } from './_resolvers/poster-detail.resolver';
+import { PosterCreateComponent } from './posters/poster-create/poster-create.component';
 
 @NgModule({
    declarations: [
@@ -30,20 +33,24 @@ import { PosterCardComponent } from './posters/poster-card/poster-card.component
       HomeComponent,
       RegisterComponent,
       PosterListComponent,
-      PosterCardComponent
+      PosterCardComponent,
+      PosterDetailComponent,
+      PosterCreateComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      TabsModule.forRoot()
    ],
    providers: [
       AccountService,
       ErrorInterceptorProvider,
       AlertifyService,
-      PosterService
+      PosterService,
+      PosterDetailResolver
    ],
    bootstrap: [
       AppComponent

@@ -7,6 +7,11 @@
           <a class="nav-link" [routerLink]="['/posters']">Posters</a>
         </li>
       </ul>
+      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="router-link-active">
+          <a class="nav-link" [routerLink]="['/createPoster']">CreatePoster</a>
+        </li>
+      </ul>
 
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
         <button class="btn  dropdown-toggle text-white" dropdownToggle>

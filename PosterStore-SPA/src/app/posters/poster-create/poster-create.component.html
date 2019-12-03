@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-sm-8">
+              <form #registerForm="ngForm" id="registerForm" (ngSubmit)="updateUser()">
+                  <div class="input-group flex-nowrap">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="addon-wrapping">Title</span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div>
+                  <div class="input-group flex-nowrap">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="addon-wrapping">Size</span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div>
+                  
+                  <div class="input-group flex-nowrap">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="addon-wrapping">$</span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div>
+                    <h4>Description</h4>
+                    <textarea class="form-control" name="description" rows="6" 
+                      [(ngModel)]="user.interests"></textarea>     
+              </form>
+        </div>
+    </div>
+  </div>

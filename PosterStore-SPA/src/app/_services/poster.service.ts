@@ -23,5 +23,8 @@ getPosters(): Observable<Poster[]> {
 getPoster(id): Observable<Poster> {
   return this.http.get<Poster>(this.baseUrl + 'posters/' + id, httpOptions);
 }
+registerPoster(model: any) {
+  return this.http.post(this.baseUrl + 'poster/registerPoster', model);
+}
 
 }
