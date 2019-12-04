@@ -35,7 +35,7 @@ namespace PosterStore.Data
         return posters;
     }
 
-    public async Task<Poster> RegisterPoster(Poster poster)
+    public async Task<Poster> CreatePoster(Poster poster)
     {
       await _context.AddAsync(poster);
       await _context.SaveChangesAsync();

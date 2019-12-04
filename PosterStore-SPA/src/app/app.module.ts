@@ -24,6 +24,7 @@ import { appRoutes } from './routes';
 import { PosterService } from './_services/poster.service';
 import { PosterDetailResolver } from './_resolvers/poster-detail.resolver';
 import { PosterCreateComponent } from './posters/poster-create/poster-create.component';
+import { UploadComponent } from './posters/poster-create/upload/upload.component';
 
 @NgModule({
    declarations: [
@@ -35,7 +36,9 @@ import { PosterCreateComponent } from './posters/poster-create/poster-create.com
       PosterListComponent,
       PosterCardComponent,
       PosterDetailComponent,
-      PosterCreateComponent
+      PosterCreateComponent,
+      UploadComponent
+
    ],
    imports: [
       BrowserModule,

@@ -1,29 +1,36 @@
 <div class="container mt-4">
     <div class="row">
       <div class="col-sm-8">
-              <form #registerForm="ngForm" id="registerForm" (ngSubmit)="updateUser()">
+              <form  id="registerForm" *ngIf="isCreate">
                   <div class="input-group flex-nowrap">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="addon-wrapping">Title</span>
                       </div>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                      <input type="text" class="form-control" placeholder="title" aria-label="title" aria-describedby="addon-wrapping" 
+                      [(ngModel)]="poster.title">
                   </div>
                   <div class="input-group flex-nowrap">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="addon-wrapping">Size</span>
                       </div>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                      <input type="text" class="form-control" placeholder="Size" aria-label="Size" aria-describedby="addon-wrapping"
+                      [(ngModel)]="poster.size">
                   </div>
                   
                   <div class="input-group flex-nowrap">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="addon-wrapping">$</span>
                       </div>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                      <input type="text" class="form-control" placeholder="Price" aria-label="Price" aria-describedby="addon-wrapping"
+                      [(ngModel)]="poster.price">
                   </div>
                     <h4>Description</h4>
                     <textarea class="form-control" name="description" rows="6" 
-                      [(ngModel)]="user.interests"></textarea>     
+                      [(ngModel)]="poster.description"></textarea>
+                      <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+                      <div class="offset-md-5 col-md-2">
+                          <button type="button" class="btn btn-primary" (click)="onCreate()">Create </button>
+                      </div>
               </form>
         </div>
     </div>

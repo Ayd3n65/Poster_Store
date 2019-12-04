@@ -42,7 +42,11 @@ namespace PosterStore
                     opt.SerializerSettings.ReferenceLoopHandling = 
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
-            services.AddCors();
+            services.AddCors(options => options.AddPolicy("AllowAll",
+            builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            }));
             services.AddTransient<Seed>();
             services.AddAutoMapper();
             services.AddScoped<IAuthRepository,AuthRepository>(); // ми делаем внедрение IAuthRepository в наш контроллер 
@@ -85,7 +89,9 @@ namespace PosterStore
                 app.UseHsts();
             }
            // seeder.SeedPosters();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
+           // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
+           app.UseCors("AllowAll");
+
              // app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();

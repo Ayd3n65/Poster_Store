@@ -26,5 +26,9 @@ getPoster(id): Observable<Poster> {
 registerPoster(model: any) {
   return this.http.post(this.baseUrl + 'poster/registerPoster', model);
 }
+upload(formData) {
+  return this.http.request('https://localhost:5000/api/posters', formData, {reportProgress: true, observe: 'events'});
+}
+
 
 }

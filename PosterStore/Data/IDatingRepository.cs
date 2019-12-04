@@ -13,7 +13,7 @@ namespace PosterStore.Data
         Task<bool> SaveAll();
         Task<IEnumerable<Poster>> GetPosters();
         Task<Poster> GetPoster(int id); 
-        Task<Poster> RegisterPoster(Poster poster); 
+        Task<Poster> CreatePoster(Poster poster); 
 
 
     }
