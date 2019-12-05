@@ -66,7 +66,10 @@ namespace PosterStore
                         ValidateAudience = false
                     };
                 });
-
+            services.AddAuthorization(options =>{
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("ModeratePosterRole",policy => policy.RequireRole("Admin","Moderator"));  
+            });
             services.AddMvc(options =>
                 {
                     var policy = new AuthorizationPolicyBuilder()
@@ -117,7 +120,7 @@ namespace PosterStore
                 //app.UseHsts();
             }
            // seeder.SeedPosters();
-           //seeder.SeedUsers();
+           // seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
            //app.UseCors("AllowAll");
 

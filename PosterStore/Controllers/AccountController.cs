@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Claims;
@@ -60,38 +61,52 @@ namespace PosterStore.Controllers
     {
       // var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
       // if (userFromRepo == null)
-      var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
-      var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
-      if (result.Succeeded)
-      {
-        var appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
-        var userToReturn = _mapper.Map<UserForListDto>(appUser);
-        return Ok(new
-        {
-          token = GenerateJWtToken(appUser),
-          user = userToReturn // отправляем токен в response 
-        });
-      }
+            var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
+
+            var result = await _signInManager
+                .CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
+
+            if (result.Succeeded)
+            {
+                var appUser = await _userManager.Users
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
+
+                var userToReturn = _mapper.Map<UserForListDto>(appUser);
+
+                return Ok(new
+                {
+                    token = GenerateJWtToken(appUser).Result,
+                    user = userToReturn// отправляем токен в response 
+                });
+            }
         return Unauthorized();
       // Создаем токен который потом отправим юзеру, он будет содержать 2-битную инф о юзере(username и password) 
       //Так как токен валидирован сервером без использования бд,сервер сможет заглянуть внутрь токена и получит данные о юзере
 
     }
-    private string GenerateJWtToken(User user)
+    private async Task<string> GenerateJWtToken(User user)
     {
-      var claims = new[]
+      var claims = new List<Claim>
       {
         new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),         // NameIdentifier = id
         new Claim(ClaimTypes.Name,user.UserName)
-      };
-      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+      };  
+      var roles = await _userManager.GetRolesAsync(user);
+
+      foreach (var role in roles)
+      {
+          claims.Add(new Claim(ClaimTypes.Role,role)); // теперь токен будет иметь roles в том числе
+      }
+      var key = new SymmetricSecurityKey(Encoding.UTF8
+        .GetBytes(_config.GetSection("AppSettings:Token").Value));
+
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
       //создам токен
       var tokenDescriptor = new SecurityTokenDescriptor
       {
-        Subject = new ClaimsIdentity(claims),
-        Expires = DateTime.Now.AddDays(1),
-        SigningCredentials = creds
+         Subject = new ClaimsIdentity(claims),
+         Expires = DateTime.Now.AddDays(1),
+         SigningCredentials = creds
       };
       //прописываем handler, который позволит создавать token основаном на tokenDescriptor
       var tokenHandler = new JwtSecurityTokenHandler();
