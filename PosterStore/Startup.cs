@@ -20,6 +20,10 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using PosterStore.Helpers;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using PosterStore.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace PosterStore
 {
@@ -37,21 +41,20 @@ namespace PosterStore
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(opt => {
-                    opt.SerializerSettings.ReferenceLoopHandling = 
-                        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                });
-            services.AddCors(options => options.AddPolicy("AllowAll",
-            builder =>
-            {
-                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-            }));
-            services.AddTransient<Seed>();
-            services.AddAutoMapper();
-            services.AddScoped<IAuthRepository,AuthRepository>(); // ми делаем внедрение IAuthRepository в наш контроллер 
-            // код внутри контроллера никогда не будет изменятся 
-            services.AddScoped<IDatingRepository,DatingRepository>();
+                
+            IdentityBuilder builder = services.AddIdentityCore<User>(opt => {
+                 opt.Password.RequireDigit = false;
+                 opt.Password.RequiredLength =4;
+                 opt.Password.RequireNonAlphanumeric = false;
+                 opt.Password.RequireUppercase = false;
+            });
+
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<DataContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -63,6 +66,31 @@ namespace PosterStore
                         ValidateAudience = false
                     };
                 });
+
+            services.AddMvc(options =>
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                            .Build();
+                    options.Filters.Add(new AuthorizeFilter(policy));
+                }
+            )
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .AddJsonOptions(opt => {
+                        opt.SerializerSettings.ReferenceLoopHandling = 
+                            Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    });
+            services.AddCors();
+            services.AddTransient<Seed>();
+            // Mapper.Reset();
+           // services.AddAutoMapper();
+            services.AddAutoMapper(typeof(UserRepository).Assembly);
+
+            services.AddScoped<IAuthRepository,AuthRepository>(); // ми делаем внедрение IAuthRepository в наш контроллер 
+            // код внутри контроллера никогда не будет изменятся 
+            services.AddScoped<IDatingRepository,DatingRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             
         }
 
@@ -86,11 +114,12 @@ namespace PosterStore
                         }
                     });
                 });
-                app.UseHsts();
+                //app.UseHsts();
             }
            // seeder.SeedPosters();
-           // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
-           app.UseCors("AllowAll");
+           //seeder.SeedUsers();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
+           //app.UseCors("AllowAll");
 
              // app.UseHttpsRedirection();
             app.UseAuthentication();

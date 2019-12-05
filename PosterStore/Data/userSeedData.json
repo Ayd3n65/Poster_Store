@@ -1,0 +1,25 @@
+[
+  {
+    "Username": "Lola",
+    "Gender": "female",
+    "Password": "password"
+  },
+  {
+    "Username": "Dorothy",
+    "Gender": "female",
+    "Password": "password"
+    
+  },
+  {
+    "Username": "Reba",
+    "Gender": "female",
+    "Password": "password"
+  },
+  {
+    "Username": "Annmarie",
+    "Gender": "female",
+    "Password": "password"
+  }
+
+
+]

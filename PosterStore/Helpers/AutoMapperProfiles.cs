@@ -18,6 +18,10 @@ namespace PosterStore.Helpers
               opt.MapFrom(src => src.PosterImages.FirstOrDefault(p => p.isMain).Url);
             });
           CreateMap<PosterImage, PosterImagesForDetail>();
+          CreateMap<User,UserForListDto>();   
+          CreateMap<UserForRegisterDto,User>();
+
+
 
       }  
     }

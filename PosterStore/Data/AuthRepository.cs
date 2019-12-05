@@ -19,7 +19,7 @@ namespace PosterStore.Data
     {
       var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
       if (user == null) return null;
-      if (!VerifyPasswordHash(password,user.PasswordHash,user.PasswordSalt)) return null;
+      // if (!VerifyPasswordHash(password,user.PasswordHash,user.PasswordSalt)) return null;
 
       return user; 
     }
@@ -43,8 +43,8 @@ namespace PosterStore.Data
       CreatePasswordHash(password,out passwordHash, out  passwordSalt);
       //out - Означает reference к переменной изначальной. Если passwordHash Обновится в методе,
       //он так же обновится и в строке обьявления
-      user.PasswordHash = passwordHash;
-      user.PasswordSalt = passwordSalt;
+      // user.PasswordHash = passwordHash;
+      // user.PasswordSalt = passwordSalt;
       await _context.AddAsync(user);
       await _context.SaveChangesAsync();
 

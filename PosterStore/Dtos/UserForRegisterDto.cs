@@ -6,9 +6,12 @@ namespace PosterStore.Dtos
     {
         [Required]
         public string Username { get; set; }
+
         [Required]
-        [StringLength(8,MinimumLength=4,ErrorMessage="Определите пароль между 4 и 8 символами")]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "You must specify a password between 4 and 8 characters")]
         public string Password { get; set; }
 
+        public string Gender { get; set; }
+        public int Age { get; set; }
     }
 }
