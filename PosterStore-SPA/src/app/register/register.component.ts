@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { AlertifyService } from '../_services/alertify.service';
 
@@ -8,6 +8,7 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  @Output() cancelRegister = new EventEmitter();
    model: any = {};
   constructor(private accountService: AccountService, private alertify: AlertifyService ) { }
 
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
     }, error => this.alertify.error(error));
   }
   cancel() {
-
-    }
+    this.cancelRegister.emit(false);
+  }
 
 }

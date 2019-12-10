@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PosterStore.Migrations
 {
-    public partial class identityInitial : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,7 @@ namespace PosterStore.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Gender = table.Column<string>(nullable: true),
-                    Ages = table.Column<int>(nullable: false)
+                    Age = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

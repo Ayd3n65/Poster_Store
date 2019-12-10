@@ -59,10 +59,7 @@ namespace PosterStore.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
     {
-      // var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
-      // if (userFromRepo == null)
             var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
-
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
 
@@ -76,10 +73,11 @@ namespace PosterStore.Controllers
                 return Ok(new
                 {
                     token = GenerateJWtToken(appUser).Result,
-                    user = userToReturn// отправляем токен в response 
+                    user = userToReturn
                 });
             }
-        return Unauthorized();
+
+            return Unauthorized();
       // Создаем токен который потом отправим юзеру, он будет содержать 2-битную инф о юзере(username и password) 
       //Так как токен валидирован сервером без использования бд,сервер сможет заглянуть внутрь токена и получит данные о юзере
 

@@ -11,11 +11,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PosterStore.Data;
 using PosterStore.Dtos;
+using PosterStore.Helpers;
 using PosterStore.Models;
 
 namespace PosterStore.Controllers
 {
+  [AllowAnonymous]
   [Route("api/[controller]")]
+
   public class PostersController : ControllerBase
   {
     public readonly IDatingRepository _repo;
@@ -33,11 +36,15 @@ namespace PosterStore.Controllers
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPosters()
+    public async Task<IActionResult> GetPosters([FromQuery]PosterParams posterParams)
     {
-      var posters = await _repo.GetPosters();
+      var posters = await _repo.GetPosters(posterParams);
       var postersToReturn = _mapper.Map<IEnumerable<PosterForDetailedDto>>(posters);
+      // Чтоб клиент знал о нашец пагинации, мы добавляем пагинацию в response Header
 
+      Response.AddPagination(posters.CurrentPage,posters.PageSize,
+        posters.TotalCount,posters.TotalPages); 
+      // мы все равно отправляем список posters но в response header у нас имеется инф о пагинации
       return Ok(postersToReturn);
     }
 

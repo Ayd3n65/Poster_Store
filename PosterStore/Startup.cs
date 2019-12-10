@@ -119,8 +119,8 @@ namespace PosterStore
                 });
                 //app.UseHsts();
             }
-           // seeder.SeedPosters();
-           // seeder.SeedUsers();
+        //    seeder.SeedPosters();
+        //    seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
            //app.UseCors("AllowAll");
 

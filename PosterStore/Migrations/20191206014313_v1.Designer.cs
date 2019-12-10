@@ -10,8 +10,8 @@ using PosterStore.Data;
 namespace PosterStore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191205181442_Roles")]
-    partial class Roles
+    [Migration("20191206014313_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

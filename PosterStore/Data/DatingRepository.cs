@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PosterStore.Helpers;
 using PosterStore.Models;
 
 namespace PosterStore.Data
@@ -29,10 +30,10 @@ namespace PosterStore.Data
         return poster;
     }
 
-    public async Task<IEnumerable<Poster>> GetPosters()
+    public async Task<PagedList<Poster>> GetPosters(PosterParams posterParams)
     {
-        var posters = await _context.Posters.Include(p => p.PosterImages).ToListAsync();
-        return posters;
+        var posters = _context.Posters.Include(p => p.PosterImages);
+        return await PagedList<Poster>.CreateAsync(posters,posterParams.PageNumber,posterParams.PageSize);
     }
 
     public async Task<Poster> CreatePoster(Poster poster)

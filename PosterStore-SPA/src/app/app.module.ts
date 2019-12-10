@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -25,6 +25,13 @@ import { PosterService } from './_services/poster.service';
 import { PosterDetailResolver } from './_resolvers/poster-detail.resolver';
 import { PosterCreateComponent } from './posters/poster-create/poster-create.component';
 import { UploadComponent } from './posters/poster-create/upload/upload.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthGuard } from './_guards/auth.guard';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AdminService } from './_services/admin.service';
+import { UserManagComponent } from './admin/user-manag/user-manag.component';
+import { PosterListResolver } from './_resolvers/poster-list.resolver';
 
 @NgModule({
    declarations: [
@@ -37,7 +44,10 @@ import { UploadComponent } from './posters/poster-create/upload/upload.component
       PosterCardComponent,
       PosterDetailComponent,
       PosterCreateComponent,
-      UploadComponent
+      UploadComponent,
+      AdminPanelComponent,
+      HasRoleDirective,
+      UserManagComponent
 
    ],
    imports: [
@@ -46,14 +56,19 @@ import { UploadComponent } from './posters/poster-create/upload/upload.component
       FormsModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      PaginationModule.forRoot()
    ],
    providers: [
       AccountService,
       ErrorInterceptorProvider,
       AlertifyService,
       PosterService,
-      PosterDetailResolver
+      PosterDetailResolver,
+      JwtHelperService,
+      AuthGuard,
+      AdminService,
+      PosterListResolver
    ],
    bootstrap: [
       AppComponent

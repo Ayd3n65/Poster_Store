@@ -14,19 +14,19 @@ export class PosterDetailComponent implements OnInit {
   constructor(private posterService: PosterService, private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    // this.route.data.subscribe(data => {
-    //   this.poster = data['poster'];
-    // });
-    this.loadPoster();
+    this.route.data.subscribe(data => {
+      this.poster = data['poster'];
+    });
+    // this.loadPoster();
   }
   // poster/2 - param
-  loadPoster() {
-    this.posterService.getPoster(+this.route.snapshot.params['id'])
-        .subscribe((poster: Poster) => {
-          this.poster = poster;
-        }, error => {
-          this.alertify.error(error);
-        }); // + конвертит в number из string
-  }
+  // loadPoster() {
+  //   this.posterService.getPoster(+this.route.snapshot.params['id'])
+  //       .subscribe((poster: Poster) => {
+  //         this.poster = poster;
+  //       }, error => {
+  //         this.alertify.error(error);
+  //       }); // + конвертит в number из string
+  // }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PosterStore.Helpers;
 using PosterStore.Models;
 
 namespace PosterStore.Data
@@ -11,7 +12,7 @@ namespace PosterStore.Data
          void Delete<T>(T entity) where T : class;
 
         Task<bool> SaveAll();
-        Task<IEnumerable<Poster>> GetPosters();
+        Task<PagedList<Poster>> GetPosters(PosterParams posterParams);
         Task<Poster> GetPoster(int id); 
         Task<Poster> CreatePoster(Poster poster); 
 
