@@ -17,8 +17,8 @@
 
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
         <button class="btn  dropdown-toggle text-white" dropdownToggle>
-          <!-- Welcome {{authService.decodedToken?.unique_name | titlecase}} -->
-          Welcome User
+          Welcome {{accountService.decodedToken?.unique_name | titlecase}}
+          <!-- Welcome User -->
         </button>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *dropdownMenu>

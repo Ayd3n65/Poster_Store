@@ -42,7 +42,7 @@ constructor(private http: HttpClient) { }
     );
 }
 getPoster(id): Observable<Poster> {
-  return this.http.get<Poster>(this.baseUrl + 'posters/' + id, httpOptions);
+  return this.http.get<Poster>(this.baseUrl + 'posters/' + id);
 }
 registerPoster(model: any) {
   return this.http.post(this.baseUrl + 'poster/registerPoster', model);

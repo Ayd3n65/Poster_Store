@@ -9,7 +9,7 @@ import { Poster } from '../_models/poster';
 @Injectable()
 export class PosterListResolver implements Resolve<Poster[]> {
     pageNumber = 1;
-    pageSize = 2;
+    pageSize = 3;
 
     constructor(private posterService: PosterService, private router: Router,
         private alertify: AlertifyService) {}
